@@ -127,7 +127,7 @@ do
             Console.WriteLine("You would like to delete a DVD.");
             Console.WriteLine("What DVD would you like to delete?");
             string deleteDvd = Convert.ToString(Console.ReadLine());
-            DVD.Remove(deleteDvd);
+            DVD.RemoveAt(deleteDvd);
             foreach (var item in DVD)
                 Console.WriteLine(item);
             break;
