@@ -1,142 +1,178 @@
-﻿/*PROGRAM: A USER HAS A DVD COLLECTION. GIVE THE USER THE OPTION TO ADD A DVD, CHOOSE A DVD, UPDATE A DVD'S INFORMATION
- *  OR DELETE A DVD.
- * 
- */
-
-
-
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Collections;
 
+// CREATE A FILE PATH TO READ LIST TO AND FROM FILE
+string filePath = @"C:\demo\DVD.txt";
 
-//bool keepGoing = true;
 
+List<string> Dvd = new List<string>(); // create list
+Dvd = File.ReadAllLines(filePath).ToList(); // assign file to read list DvdCollection to
 
-// create new list and list object
-List<string> DVD = new List<string>();
-// add hard coded items to the list
-DVD.Add("Titanic");
-DVD.Add("Finding Nemo");
-DVD.Add("Saw");
-DVD.Add("The Lion King");
-DVD.Add("Old Yeller");
+// hard code items to the list
+Dvd.Add("Finding Nemo");
+Dvd.Add("Airbud");
 
-// create a do while loop to ask the user what they would like to do
+// end hard coded items to list
+Console.WriteLine("Welcome to my program!");
+Console.WriteLine("*********************");
+Console.WriteLine();
+System.Threading.Thread.Sleep(2000);
+Console.WriteLine("Here is your current list:");
+Console.WriteLine("-------------------------");
+Console.WriteLine();
+foreach (string dvd in Dvd)
+{
+    Console.WriteLine("*{0}", dvd);
+}
+Console.WriteLine();
+System.Threading.Thread.Sleep(2000);
 
 do
 {
+    
+    
+    Console.WriteLine("Please select one of the following:");
+    Console.WriteLine("**********************************");
+    Console.WriteLine();
     System.Threading.Thread.Sleep(2000);
-    Console.WriteLine("My list of DVDs include:"); // show the list of DVDs
-    Console.WriteLine();
-    foreach (var item in DVD) // foreach loop to display DVDs
-    {
+    Console.WriteLine("1) Type 'add' if you would like to add a DVD");
+    System.Threading.Thread.Sleep(1000);
+    Console.WriteLine("2) Type 'choose' if you would like to choose a DVD");
+    System.Threading.Thread.Sleep(1000);
+    Console.WriteLine("3) Type 'update' if you would like to update a DVD list to a file.");
+    System.Threading.Thread.Sleep(1000);
+    Console.WriteLine("4) Type 'delete' if you would like to delete a DVD from your list");
+    System.Threading.Thread.Sleep(1000);
+    Console.WriteLine("5) Press 0 to exit the program.");
+    System.Threading.Thread.Sleep(2000);
+    string userChoice = Convert.ToString(Console.ReadLine());
 
-        Console.WriteLine("*{0}", item);
-    }
-    Console.WriteLine();
-    Console.WriteLine("Press 1 to add a DVD, press 2 to choose a DVD, press 3 to update a DVD's information" +
-        ",press 4 to delete a DVD, or 5 to end the program.");
-    int userChoice = Convert.ToInt32(Console.ReadLine());
 
-
+    // SWITCH STATEMENTS FOR USERS CHOICE
     switch (userChoice)
     {
-        case 1:
-            do
+        case "add":
+            Console.WriteLine("You would like to add a movie to your list!");
+            System.Threading.Thread.Sleep(2000);
+            Console.WriteLine();
+            Console.WriteLine("What is the name of the movie you would like to add to your collection?");
+            System.Threading.Thread.Sleep(2000);
+            string addMovie = (Console.ReadLine());
+            Dvd.Add(addMovie);
+            Console.WriteLine();
+            Console.WriteLine("{0} has been added to your list.", addMovie);
+            Console.WriteLine();
+            System.Threading.Thread.Sleep(2000);
+            break;
+        case "choose":
+            Console.WriteLine("You would like a choose a DVD to watch!");
+            System.Threading.Thread.Sleep(1000);
+            Console.WriteLine();
+            Console.WriteLine("Which movie would you like to watch? Please choose one of the following:");
+            Console.WriteLine();
+            System.Threading.Thread.Sleep(2000);
+            foreach (string dvd in Dvd)
             {
-                Console.WriteLine("You would like to add a DVD.");
-                System.Threading.Thread.Sleep(1000);
-                Console.WriteLine();
-                Console.WriteLine("What is the title you would like to add?");
-                DVD.Add(Console.ReadLine());
-                Console.WriteLine();
-                Console.WriteLine("{0} has been added to the list.", DVD.Last());
-                System.Threading.Thread.Sleep(1000);
-                Console.WriteLine("Would you like to add another?");
-                string continueOn = Convert.ToString(Console.ReadLine());
-                if (continueOn != "no")
-                {
-                    Console.WriteLine("What is the title you would like to add?");
-                    DVD.Add(Console.ReadLine());
+                Console.WriteLine("*{0}",dvd);
+            }
+            string dvdChosen = Convert.ToString(Console.ReadLine());
+            Console.WriteLine();
+            Console.WriteLine("Get ready to watch {0}!", dvdChosen);
+            System.Threading.Thread.Sleep(1000);
+            break;
+        case "update":
+            Console.WriteLine("You would like to show your updated list");
+            System.Threading.Thread.Sleep(1000);
+            Console.WriteLine();
+            Console.WriteLine("Before I show an updated list, would you like to add a dvd? Press Y or N.");
+            string updateNewDvd = Convert.ToString(Console.ReadLine());
+            switch (updateNewDvd)
+            {
+                case "y":
+                    Console.WriteLine("Ok, let's add another movie!");
                     Console.WriteLine();
-                    Console.WriteLine("{0} has been added to the list.", DVD.Last());
-                    
+                    Console.WriteLine("What is the name of the movie you'd like to add?");
+                    dvdChosen = Convert.ToString(Console.ReadLine());
+                    Dvd.Add(dvdChosen);
+                    Console.WriteLine();
+                    Console.WriteLine("Would you like to add another DVD? Press 'y' for yes and 'n' for no");
+                    updateNewDvd = Convert.ToString(Console.ReadLine());
+                    if(updateNewDvd == "y")
+                    {
+                        Console.WriteLine("Ok, let's add another movie!");
+                        Console.WriteLine();
+                        Console.WriteLine("What is the name of the movie you'd like to add?");
+                        dvdChosen = Convert.ToString(Console.ReadLine());
+                        Dvd.Add(dvdChosen);
+                        Console.WriteLine();
+                        Console.WriteLine("Would you like to add another DVD?");
+                        updateNewDvd = Convert.ToString(Console.ReadLine());
+                    }
+                    else if(updateNewDvd != "y")
+                    {
+                        Console.WriteLine("Here's your updated list:");
+                        Console.WriteLine("*************************");
+                        foreach (string dvd in Dvd)
+                        {
+                            Console.WriteLine("*{0}",dvd);
+                        }
+                        Console.WriteLine();
+                    }
 
-                    Console.WriteLine("Would you like to add another?");
-                    continueOn = Convert.ToString(Console.ReadLine());
-                    
-                }
-                else
-                {
                     break;
-                }
-               
 
-            } while (true);
-            break;
-        case 2:
-            Console.WriteLine("You would like to choose a DVD.");
-            Console.WriteLine();
-            System.Threading.Thread.Sleep(2000);
-            Console.WriteLine("Which DVD would you like to choose from the list? (choose 0, 1, 2, 3, etc. for the DVD");
-            foreach(var item in DVD)
-            {
-                Console.WriteLine(item);
+                case "n":
+                    Console.WriteLine("Here's your updated list:");
+                    Console.WriteLine("*************************");
+                    Console.WriteLine();
+                    foreach(string dvd in Dvd)
+                    {
+                        Console.WriteLine("*{0}",dvd);
+                    }
+                    Console.WriteLine();
+                    System.Threading.Thread.Sleep(1000);
+                    break;
             }
-            Console.WriteLine();
-            string DVDchosen = Convert.ToString(Console.ReadLine());
-            Console.WriteLine("You chose {0}", DVDchosen);
-            System.Threading.Thread.Sleep(2000);
-            Console.WriteLine();
             
-
-
             break;
-        case 3:
-            Console.WriteLine("You would like to update a DVD's information.");
+            
+        case "delete":
+            Console.WriteLine("You would like to delete a DVD");
             System.Threading.Thread.Sleep(2000);
-            Console.WriteLine("Which DVD would you like you like to update?");
+            Console.WriteLine();
+            Console.WriteLine("Which DVD would you like to delete? Choose from your collection:");
             System.Threading.Thread.Sleep(2000);
-            Console.WriteLine("Chose one of the following: ");
-            foreach(var item in DVD)
-            {
-                Console.WriteLine(item);
-            }
-            string DVDchosen2 = Convert.ToString(Console.ReadLine());
-            System.Threading.Thread.Sleep(2000);
-            Console.WriteLine("What would you like to update? Choose 'move' to move to the back of the list or 'adjust' " +
-                "to adjust the title.");
-            string updateDvd = Convert.ToString(Console.ReadLine());
-            System.Threading.Thread.Sleep(2000);
-            if(updateDvd == "move")
-            {
-                DVD.Append(DVDchosen2);
-                Console.WriteLine("{0} has been added to the end of the list.", DVDchosen2);
-                System.Threading.Thread.Sleep(2000);
-                Console.WriteLine("Here is the updated list: ");
-                foreach(var item in DVD)
-                {
-                    Console.WriteLine(item);
-                }
-                Console.WriteLine();
-                System.Threading.Thread.Sleep(2000);
-            }
+            foreach (string dvd in Dvd)
+                Console.WriteLine("*{0}",dvd);
+            string dvdDeleted = Convert.ToString(Console.ReadLine());
+            Dvd.Remove(dvdDeleted);
+            Console.WriteLine();
+            Console.WriteLine("{0} has been deleted.", dvdDeleted);
+            Console.WriteLine();
+            Console.WriteLine("Here is your updated list:");
+            Console.WriteLine("*************************");
+            Console.WriteLine();
+            System.Threading.Thread.Sleep(1000);
+            foreach (string dvd in Dvd)
+                Console.WriteLine("*{0}",dvd);
             break;
-
-        case 4:
-            Console.WriteLine("You would like to delete a DVD.");
-            Console.WriteLine("What DVD would you like to delete?");
-            string deleteDvd = Convert.ToString(Console.ReadLine());
-            DVD.RemoveAt(deleteDvd);
-            foreach (var item in DVD)
-                Console.WriteLine(item);
-            break;
-        case 5:
-            Console.WriteLine("You would like to end this program. Goodbye.");
+        case "0":
+            Console.WriteLine("Good-Bye!");
             break;
         default:
-            Console.WriteLine("Invalid input.");
+            Console.WriteLine("Incorrect value entered.");
             break;
     }
-} while (true);
 
+    if(userChoice == "0")
+    {
+        break;
+    }
+    
+
+} while (true);
+Console.WriteLine();
